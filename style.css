@@ -116,14 +116,13 @@ ul {
 	transition: all 0.3s ease-in-out;
 }
 /* end html */
-#end > *  {
-margin-block: .2rem;
+#end > * {
+	margin-block: 0.2rem;
 }
 input#username {
-    padding: 0.8rem;
-    border-radius: 0.5rem;
-    outline:  #56a5eb;
-
+	padding: 0.8rem;
+	border-radius: 0.5rem;
+	outline: #56a5eb;
 }
 /* .btn-score {
   font-size: 1.8rem;
@@ -143,11 +142,29 @@ input#username {
   transform: translateY(-0.1rem);
   transition: transform 150ms;
 } */
-.btn-btn[disabled]{
+.btn-btn[disabled] {
 	background-color: gray;
 }
 .btn-btn[disabled]:hover {
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
+	cursor: not-allowed;
+	box-shadow: none;
+	transform: none;
+}
+
+/* score page */
+table.score-table.score-table-bordered {
+	border: 1px solid rgb(245, 245, 245);
+}
+table.score-table.score-table-bordered tr td,
+table.score-table.score-table-bordered tr th {
+	padding: 5px 20px;
+	font-size: 1.5rem;
+}
+
+table.score-table.score-table-bordered tr {
+	background-color: #6d9eb8;
+	color: white;
+}
+table.score-table.score-table-bordered tr:hover {
+	background-color: #74a177;
 }

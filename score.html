@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Quiz App - End</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="play.css" />
+	</head>
+
+	<body>
+		<div class="container">
+			<div
+				id="end"
+				class="flex justify-center flex-column width-default text-center"
+			>
+				<h1 id="score-title" class="">Leader Board</h1>
+				<table class="score-table score-table-bordered high-score-lists">
+					<thead>
+						<tr>
+							<th>SL No</th>
+							<th>User Name</th>
+							<th>Score</th>
+						</tr>
+					</thead>
+					<tbody id="score-lists">
+						
+					</tbody>
+				</table>
+				<a href="/play.html" class="btn btn-primary">Play</a>
+				<a href="index.html" class="btn btn-secondary">Go Home</a>
+			</div>
+		</div>
+	</body>
+	<script src="score.js"></script>
+</html>
