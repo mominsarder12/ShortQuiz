@@ -168,3 +168,26 @@ table.score-table.score-table-bordered tr {
 table.score-table.score-table-bordered tr:hover {
 	background-color: #74a177;
 }
+/* Loader functionlaity */
+.hidden {
+	visibility: hidden;
+}
+.loader {
+	width: 15rem;
+	height: 15rem;
+	border: 2rem solid white;
+	border-top-color: #56a5eb;
+	/* border-top: rgb(19, 202, 226); */
+	border-radius: 50%;
+	animation: spin 1s infinite ease-in;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}

@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const questionText = document.getElementById("question-text");
 	const scoreText = document.getElementById("score-text");
 	const progressBarFull = document.querySelector(".progress-fill");
+	const loader = document.querySelector(".loader");
+	const game = document.querySelector("#game");
 	//console.log(progressBarFull);
 
 	let currentQuestion = {};
@@ -13,15 +15,37 @@ document.addEventListener("DOMContentLoaded", () => {
 	let availableQuestions = [];
 	let questions = [];
 
-	fetch("questions.json")
-		.then((res) => {
-			console.log(res);
-			return res.json();
-		})
-		.then((loadedQuestion) => {
-			console.log(loadedQuestion);
-			questions = loadedQuestion;
-			startGame();
+	fetch("https://opentdb.com/api.php?amount=10")
+		.then((res) => res.json())
+		.then((loadedQuestions) => {
+			//console.log(loadedQuestions.results);
+
+			questions = loadedQuestions.results.map((loadedQuestion) => {
+				const formattedQuestion = {
+					question: loadedQuestion.question,
+				};
+
+				// copy incorrect answers
+				const answerChoices = [...loadedQuestion.incorrect_answers];
+
+				// insert correct answer at random position
+				formattedQuestion.answer =
+					Math.floor(Math.random() * answerChoices.length) + 1;
+				answerChoices.splice(
+					formattedQuestion.answer - 1,
+					0,
+					loadedQuestion.correct_answer
+				);
+
+				// assign choices into choice1, choice2, ...
+				answerChoices.forEach((choice, index) => {
+					formattedQuestion["choice" + (index + 1)] = choice;
+				});
+				//console.log(formattedQuestion);
+				return formattedQuestion;
+			});
+
+			// startGame();
 		})
 		.catch((err) => {
 			console.log(err);
@@ -29,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	//CONSTANTS
 	const CORRECT_BONUS = 10;
-	const MAX_QUESTIONS = 3;
+	const MAX_QUESTIONS = 10;
 
 	startGame = () => {
 		questionCounter = 0;
@@ -37,13 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
 		availableQuestions = [...questions];
 		//console.log(availableQuestions);
 		getNewQuestion();
+		//Hide or show appears here
+		game.classList.remove("hidden");
+		loader.classList.add("hidden");
 	};
 
 	getNewQuestion = () => {
 		//exit point
 		if (availableQuestions.length == 0 || questionCounter >= MAX_QUESTIONS) {
 			localStorage.setItem("mostRecentScore", score);
-			return window.location.assign("/end.html");
+			//return window.location.assign("/end.html");
 		}
 
 		questionCounter++;
@@ -95,4 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		score += num;
 		scoreText.innerText = score;
 	};
+
+	console.log(questions + " length checking");
 });
