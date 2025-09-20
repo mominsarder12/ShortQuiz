@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App - End </title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="play.css">
     
     
 </head>
@@ -13,16 +14,23 @@
 <body>
 
     <div class="container">
-        <div id="end" class="justify-center flex-column">
-            <h2 class="end-heading">There is no Question more? Thanks for finish </h2>
-            
+        <div id="end" class="flex justify-center flex-column width-default text-center">
+           <h1 id="high-score" class="final-score">
+            0
+           </h1>
+           <form id="user-score">
+            <input type="text" placeholder="username" id="username">
+            <button onclick="saveHighScore(event)" class="save-score btn-btn btn-primary" type="submit" id="saveScoreBtn" disabled >Save Score</button>
+           </form>
+            <a href="/play.html" class="btn btn-primary">Play Again</a>
+            <a href="index.html" class="btn btn-secondary">Go Home</a>
                 
             
         </div>
     </div>
 
 
-    </head>
+
 </body>
-<script src="app.js"></script>
+<script src="end.js"></script>
 </html>
