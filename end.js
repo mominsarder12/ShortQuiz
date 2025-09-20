@@ -22,5 +22,5 @@ saveHighScore = (e) => {
 	highScores.sort((a, b) => (b.score = a.score));
 	highScores.splice(MAX_HIGHSCORES);
 	localStorage.setItem("highScores", JSON.stringify(highScores));
-	window.location.assign("/");
+	window.location.assign("https://mominsarder12.github.io/ShortQuiz");
 };
