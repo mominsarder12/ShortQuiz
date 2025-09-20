@@ -20,6 +20,7 @@ h1 {
 	color: #56a5eb;
 	margin-bottom: 3rem;
 }
+
 h1 > span {
 	font-size: 2.4rem;
 	font-weight: 500;
@@ -189,5 +190,15 @@ table.score-table.score-table-bordered tr:hover {
 
 	100% {
 		transform: rotate(360deg);
+	}
+}
+
+/* responsive
+ */
+@media (max-width: 400px) {
+	h1 {
+		font-size: 2.8rem;
+		color: #56a5eb;
+		margin-bottom: 3rem;
 	}
 }

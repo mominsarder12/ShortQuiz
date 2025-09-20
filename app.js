@@ -15,18 +15,51 @@ document.addEventListener("DOMContentLoaded", () => {
 	let availableQuestions = [];
 	let questions = [];
 
-	fetch("https://opentdb.com/api.php?amount=10")
+	function decodeHTML(html) {
+		const txt = document.createElement("textarea");
+		txt.innerHTML = html;
+		return txt.value;
+	}
+
+	fetch("https://opentdb.com/api.php?amount=20&category=9&difficulty=easy")
 		.then((res) => res.json())
 		.then((loadedQuestions) => {
 			//console.log(loadedQuestions.results);
 
+			// questions = loadedQuestions.results.map((loadedQuestion) => {
+			// 	const formattedQuestion = {
+			// 		question: loadedQuestion.question,
+			// 	};
+
+			// 	// copy incorrect answers
+			// 	const answerChoices = [...loadedQuestion.incorrect_answers];
+
+			// 	// insert correct answer at random position
+			// 	formattedQuestion.answer =
+			// 		Math.floor(Math.random() * answerChoices.length) + 1;
+			// 	answerChoices.splice(
+			// 		formattedQuestion.answer - 1,
+			// 		0,
+			// 		loadedQuestion.correct_answer
+			// 	);
+
+			// 	// assign choices into choice1, choice2, ...
+			// 	answerChoices.forEach((choice, index) => {
+			// 		formattedQuestion["choice" + (index + 1)] = choice;
+			// 	});
+			// 	//console.log(formattedQuestion);
+			// 	return formattedQuestion;
+			// });
+
 			questions = loadedQuestions.results.map((loadedQuestion) => {
 				const formattedQuestion = {
-					question: loadedQuestion.question,
+					question: decodeHTML(loadedQuestion.question),
 				};
 
 				// copy incorrect answers
-				const answerChoices = [...loadedQuestion.incorrect_answers];
+				const answerChoices = [...loadedQuestion.incorrect_answers].map((a) =>
+					decodeHTML(a)
+				);
 
 				// insert correct answer at random position
 				formattedQuestion.answer =
@@ -34,18 +67,18 @@ document.addEventListener("DOMContentLoaded", () => {
 				answerChoices.splice(
 					formattedQuestion.answer - 1,
 					0,
-					loadedQuestion.correct_answer
+					decodeHTML(loadedQuestion.correct_answer)
 				);
 
 				// assign choices into choice1, choice2, ...
 				answerChoices.forEach((choice, index) => {
 					formattedQuestion["choice" + (index + 1)] = choice;
 				});
-				//console.log(formattedQuestion);
+
 				return formattedQuestion;
 			});
 
-			// startGame();
+			 startGame();
 		})
 		.catch((err) => {
 			console.log(err);
@@ -53,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	//CONSTANTS
 	const CORRECT_BONUS = 10;
-	const MAX_QUESTIONS = 10;
+	const MAX_QUESTIONS = 20;
 
 	startGame = () => {
 		questionCounter = 0;
@@ -70,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		//exit point
 		if (availableQuestions.length == 0 || questionCounter >= MAX_QUESTIONS) {
 			localStorage.setItem("mostRecentScore", score);
-			//return window.location.assign("/end.html");
+			return window.location.assign("/end.html");
 		}
 
 		questionCounter++;
@@ -122,6 +155,4 @@ document.addEventListener("DOMContentLoaded", () => {
 		score += num;
 		scoreText.innerText = score;
 	};
-
-	console.log(questions + " length checking");
 });
